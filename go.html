@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ouverture de la source</title>
+<style>
+:root{--fg:#1d1d1f;--bg:#fff;--accent:#308ACB}
+@media (prefers-color-scheme:dark){:root{--fg:#ececec;--bg:#161616}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:640px;margin:0 auto;padding:40px 16px}
+a{color:var(--accent);font-weight:600}
+</style>
+</head>
+<body><main>
+<p id="msg">Ouverture du document à la page citée…</p>
+<p><a id="lnk" href="./">Ouvrir le document</a> · <a href="./">Liste des sources</a></p>
+</main>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search), f=q.get('f')||'', p=parseInt(q.get('p')||'',10);
+  if(!/^[A-Za-z0-9_.-]+\.pdf$/.test(f)){document.getElementById('msg').textContent='Document introuvable.';return;}
+  var url='sources/'+f+(p>0?'#page='+p:'');
+  document.getElementById('lnk').href=url;
+  if(p>0) document.getElementById('msg').textContent='Ouverture du document à la page '+p+' du PDF…';
+  location.replace(url);
+})();
+</script>
+</body></html>
